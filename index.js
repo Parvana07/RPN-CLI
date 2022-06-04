@@ -5,7 +5,7 @@ const calculate = require("./commands/Calculate");
 
 /**
  *
- * returns all user inputs history
+ * Returns all user input history
  */
 const pullHistory = (stack) => {
   let history = "";
@@ -18,7 +18,7 @@ const pullHistory = (stack) => {
       : chalk.yellow("History is empty.")
   );
 };
-/*removes user input history*/
+/* Removes user input history */
 const resetHistory = (stack) => {
   console.error(chalk.gray("RPN calculator was reset."));
   return (stack = []);
@@ -29,9 +29,10 @@ const resetHistory = (stack) => {
   let user_input = "";
   let message = "";
   let stack = [];
-  // program exits when q is presssed
+
+  // Program exits when q is presssed
   while (user_input !== "q") {
-    //accepting user input
+    // Accepting user input
     user_input = prompt("> ");
     let expression = "";
     if (!user_input) continue;
@@ -53,12 +54,13 @@ const resetHistory = (stack) => {
           user_input[i] === "/"
         ) {
           expression += user_input[i];
+          // Accepts empty space or end of user input as end of expression
         } else if (user_input[i] === " " || i === user_input.length) {
           stack.push(expression);
           expression = "";
           message = "";
         } else {
-          // throws an error when not number was entered
+          // Throws an error when input is not a number
           message = "Please enter a valid input...";
           console.error(chalk.red(message));
           break;
@@ -67,8 +69,8 @@ const resetHistory = (stack) => {
 
       let result = calculate(stack);
 
-      /* input is valid but cannot get valid result of empty stack;
-     message should be empty in order to avoid collapse of messages*/
+      /* input is valid but cannot get valid result because of empty stack;
+     message should be empty in order to avoid collapse of messages */
       if (!isNaN(result[result.length - 1]) && message.length === 0) {
         console.log(chalk.greenBright(result[result.length - 1]));
       } else {
